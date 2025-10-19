@@ -1,0 +1,43 @@
+USE goit_rdb_hw_03;
+
+-- Завдання 1: Витягнення компонентів дати
+SELECT
+    order_id,
+    order_date,
+    YEAR(order_date) AS order_year,
+    MONTH(order_date) AS order_month,
+    DAY(order_date) AS order_day
+FROM
+    orders;
+
+-- Завдання 2: Додавання одного дня до дати
+SELECT
+    order_id,
+    order_date,
+    DATE_ADD(order_date, INTERVAL 1 DAY) AS date_plus_one_day
+FROM
+    orders;
+
+-- Завдання 3: Отримання timestamp
+SELECT
+    order_id,
+    order_date,
+    UNIX_TIMESTAMP(order_date) AS order_timestamp
+FROM
+    orders;
+
+-- Завдання 4: Підрахунок рядків у часовому проміжку
+SELECT
+    COUNT(*) AS orders_in_period
+FROM
+    orders
+WHERE
+    order_date BETWEEN '1996-07-10 00:00:00' AND '1996-10-08 00:00:00';
+
+-- Завдання 5: Створення JSON-об'єкта
+SELECT
+    order_id,
+    order_date,
+    JSON_OBJECT('id', order_id, 'date', order_date) AS order_json
+FROM
+    orders;
